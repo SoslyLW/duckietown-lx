@@ -26,7 +26,7 @@ from solution.preprocessing import preprocess
 @dataclass
 class BraitenbergAgentConfig:
     gain: float = 0.7
-    const: float = 0.15
+    const: float = 0.26
 
 
 class BraitenbergAgent:

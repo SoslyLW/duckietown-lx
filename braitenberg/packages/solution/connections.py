@@ -41,7 +41,7 @@ def get_motor_left_matrix(shape: Tuple[int, int]) -> np.ndarray:
 
     for i in range(rows):
         if i > rows / 4:
-            matrix[i, :] -= 0.2
+            matrix[i, :] -= 0.12
 
     # for i in range(rows):
     #     if i < 100:
@@ -89,7 +89,7 @@ def get_motor_right_matrix(shape: Tuple[int, int]) -> np.ndarray:
     
     for i in range(rows):
         if i > rows / 4:
-            matrix[i, :] -= 0.2
+            matrix[i, :] -= 0.12
     
     # for i in range(rows):
     #     if i < 100:
