@@ -3,7 +3,7 @@ from typing import Tuple
 import numpy as np
 import math
 
-sideVal = 0.6
+sideVal = 0.9
 
 def get_motor_left_matrix(shape: Tuple[int, int]) -> np.ndarray:
     # TODO: write your function instead of this one
@@ -37,6 +37,11 @@ def get_motor_left_matrix(shape: Tuple[int, int]) -> np.ndarray:
             if j > 150 and i > rows / 4 - 1 and i < rows / 4 + 100:
                 matrix[i, j] *= 0.6
 
+    # matrix[:, :] -= 0.2
+
+    for i in range(rows):
+        if i > rows / 4:
+            matrix[i, :] -= 0.2
 
     # for i in range(rows):
     #     if i < 100:
@@ -81,7 +86,10 @@ def get_motor_right_matrix(shape: Tuple[int, int]) -> np.ndarray:
         for j in range(cols):
             if j < 640 - 150 and i > rows / 4 - 1 and i < rows / 4 + 100:
                 matrix[i, j] *= 0.6
-
+    
+    for i in range(rows):
+        if i > rows / 4:
+            matrix[i, :] -= 0.2
     
     # for i in range(rows):
     #     if i < 100:
