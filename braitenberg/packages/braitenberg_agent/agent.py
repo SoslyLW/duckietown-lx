@@ -93,6 +93,12 @@ class BraitenbergAgent:
         ls = rescale(l, self.l_min, self.l_max)
         rs = rescale(r, self.r_min, self.r_max)
 
+        # add a cutoff if there's little in the frame
+        cutoff = 0.2
+        if ls <= cutoff or rs <= cutoff:
+            ls = 0
+            rs = 0
+
         gain = self.config.gain
         const = self.config.const
         pwm_left = const + ls * gain
