@@ -25,8 +25,8 @@ from solution.preprocessing import preprocess
 # TODO edit this Config class ! Play with different gain and const values
 @dataclass
 class BraitenbergAgentConfig:
-    gain: float = 0.7
-    const: float = 0.26
+    gain: float = 0.45
+    const: float = 0.24
 
 
 class BraitenbergAgent:
@@ -103,6 +103,13 @@ class BraitenbergAgent:
         const = self.config.const
         pwm_left = const + ls * gain
         pwm_right = const + rs * gain
+        
+        # limit the max speed
+        # max_cutoff = 0.9
+        # if pwm_left > max_cutoff or pwm_right > max_cutoff:
+        #     # Multiply by constant to ensure same turning
+        #     pwm_left *= max_cutoff
+        #     pwm_right *= max_cutoff
 
         return pwm_left, pwm_right
 

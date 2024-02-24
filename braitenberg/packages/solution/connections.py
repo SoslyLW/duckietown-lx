@@ -28,10 +28,6 @@ def get_motor_left_matrix(shape: Tuple[int, int]) -> np.ndarray:
         if i < cols / 2:
             matrix[:, i] = i / a + sideVal
 
-    for j in range(rows):
-        if j < rows / 4:
-            matrix[j, :] *= (j / rows)
-
     for i in range(rows):
         for j in range(cols):
             if j > 150 and i > rows / 4 - 1 and i < rows / 4 + 100:
@@ -42,18 +38,26 @@ def get_motor_left_matrix(shape: Tuple[int, int]) -> np.ndarray:
     for i in range(rows):
         for j in range(cols):
             if i > rows / 4:
-                matrix[i, j] -= 0.16
-                # if j < 3 * cols / 4 and j > cols / 2:
-                #     matrix[i, j] -= 0.1
+                matrix[i, j] -= 0.12
+                if j < 3 * cols / 4 and j > cols / 2:
+                    matrix[i, j] -= 0.1
                 #     if i > 225 and j > cols / 4:
                 #         matrix[i, j] -= 0.2
                 # if i > 325 and j > 3 * cols / 4:
                 #     matrix[i, j] -= 0.2
+    
+    for j in range(rows):
+        if j < rows / 4:
+            # matrix[j, :] *= (j / rows)
+            matrix[j, :] = 0
+        elif j < 200:
+            matrix[j, :320] = 0.32
+            matrix[j, 320:] = 0.4
 
-    # for i in range(rows):
-    #     if i < 100:
-    #         for j in range(cols):
-    #             matrix[i, j] *= 0.1
+    for i in range(rows):
+        if i < 200:
+            for j in range(cols):
+                matrix[i, j] *= 0.5
     #     elif i < 200:
     #         for j in range(cols):
     #             matrix[i, j] *= 0.8
@@ -84,10 +88,6 @@ def get_motor_right_matrix(shape: Tuple[int, int]) -> np.ndarray:
     for i in range(cols):
         if i > cols / 2:
             matrix[:, i] = -(i - cols) / a + sideVal
-    
-    for j in range(rows):
-        if j < rows / 4:
-            matrix[j, :] *= (j / rows)
 
     for i in range(rows):
         for j in range(cols):
@@ -97,18 +97,27 @@ def get_motor_right_matrix(shape: Tuple[int, int]) -> np.ndarray:
     for i in range(rows):
         for j in range(cols):
             if i > rows / 4:
-                matrix[i, j] -= 0.16
-                # if j > cols / 4 and j < cols / 2:
-                #     matrix[i, j] -= 0.1
+                matrix[i, j] -= 0.12
+                if j > cols / 4 and j < cols / 2:
+                    matrix[i, j] -= 0.1
                 #     if i > 225 and j > cols / 4:
                 #         matrix[i, j] -= 0.2
                 # if i > 325 and j < cols / 4:
                 #     matrix[i, j] -= 0.2
+
     
-    # for i in range(rows):
-    #     if i < 100:
-    #         for j in range(cols):
-    #             matrix[i, j] *= 0.1
+    for j in range(rows):
+        if j < rows / 4:
+            # matrix[j, :] *= (j / rows)
+            matrix[j, :] = 0
+        elif j < 200:
+            matrix[j, :320] = 0.4
+            matrix[j, 320:] = 0.32
+    
+    for i in range(rows):
+        if i < 200:
+            for j in range(cols):
+                matrix[i, j] *= 0.5
     #     elif i < 200:
     #         for j in range(cols):
     #             matrix[i, j] *= 0.8
