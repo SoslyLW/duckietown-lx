@@ -94,10 +94,10 @@ class BraitenbergAgent:
         rs = rescale(r, self.r_min, self.r_max)
 
         # add a cutoff if there's little in the frame
-        cutoff = 0.1
-        if ls <= cutoff or rs <= cutoff:
-            ls = 0
-            rs = 0
+        # cutoff = 0.05
+        # if ls <= cutoff or rs <= cutoff:
+        #     ls = 0
+        #     rs = 0
 
         gain = self.config.gain
         const = self.config.const
