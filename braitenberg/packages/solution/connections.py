@@ -39,8 +39,8 @@ def get_motor_left_matrix(shape: Tuple[int, int]) -> np.ndarray:
         for j in range(cols):
             if i > rows / 4:
                 matrix[i, j] -= 0.12
-                if j < 3 * cols / 4 and j > cols / 2:
-                    matrix[i, j] -= 0.1
+                # if j < 3 * cols / 4 and j > cols / 2:
+                #     matrix[i, j] -= 0.1
                 #     if i > 225 and j > cols / 4:
                 #         matrix[i, j] -= 0.2
                 # if i > 325 and j > 3 * cols / 4:
@@ -57,7 +57,9 @@ def get_motor_left_matrix(shape: Tuple[int, int]) -> np.ndarray:
     for i in range(rows):
         if i < 200:
             for j in range(cols):
-                matrix[i, j] *= 0.5
+                matrix[i, j] *= 0.45
+        # elif i < 250:
+        #     matrix[i, :] *= 0.65
     #     elif i < 200:
     #         for j in range(cols):
     #             matrix[i, j] *= 0.8
@@ -98,8 +100,8 @@ def get_motor_right_matrix(shape: Tuple[int, int]) -> np.ndarray:
         for j in range(cols):
             if i > rows / 4:
                 matrix[i, j] -= 0.12
-                if j > cols / 4 and j < cols / 2:
-                    matrix[i, j] -= 0.1
+                # if j > cols / 4 and j < cols / 2:
+                #     matrix[i, j] -= 0.1
                 #     if i > 225 and j > cols / 4:
                 #         matrix[i, j] -= 0.2
                 # if i > 325 and j < cols / 4:
@@ -117,7 +119,9 @@ def get_motor_right_matrix(shape: Tuple[int, int]) -> np.ndarray:
     for i in range(rows):
         if i < 200:
             for j in range(cols):
-                matrix[i, j] *= 0.5
+                matrix[i, j] *= 0.45
+        # elif i < 250:
+        #     matrix[i, :] *= 0.65
     #     elif i < 200:
     #         for j in range(cols):
     #             matrix[i, j] *= 0.8
