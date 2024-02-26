@@ -25,7 +25,7 @@ from solution.preprocessing import preprocess
 # TODO edit this Config class ! Play with different gain and const values
 @dataclass
 class BraitenbergAgentConfig:
-    gain: float = 0.42
+    gain: float = 0.55
     const: float = 0.2
 
 
@@ -39,6 +39,11 @@ class BraitenbergAgent:
     r_max: float
     l_min: float
     r_min: float
+
+    leftOffset = 0
+    rightOffset = 0
+    offsetCap = 0.1
+    offset = 0
 
     def init(self, context: Context):
         context.info("init()")
@@ -101,8 +106,8 @@ class BraitenbergAgent:
 
         gain = self.config.gain
         const = self.config.const
-        pwm_left = const + ls * gain
-        pwm_right = const + rs * gain
+        pwm_left = const + ls * gain + self.offset
+        pwm_right = const + rs * gain + self.offset
         
         # limit the max speed
         # max_cutoff = 0.9
@@ -110,6 +115,19 @@ class BraitenbergAgent:
         #     # Multiply by constant to ensure same turning
         #     pwm_left *= max_cutoff
         #     pwm_right *= max_cutoff
+
+        # try to turn back towards the center
+        if pwm_left > pwm_right:
+            if self.offset > -self.offsetCap:
+                self.offset -= 0.005
+        elif pwm_right > pwm_left:
+            if self.offset < self.offsetCap:
+                self.offset += 0.005
+
+        if pwm_left > 1:
+            pwm_left = 1
+        if pwm_right > 1:
+            pwm_right = 1
 
         return pwm_left, pwm_right
 
