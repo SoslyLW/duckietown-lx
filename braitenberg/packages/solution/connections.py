@@ -3,33 +3,27 @@ from typing import Tuple
 import numpy as np
 import math
 
-sideVal = 0.9
 b = 10
 
 def get_motor_left_matrix(shape: Tuple[int, int]) -> np.ndarray:
     # TODO: write your function instead of this one
 
     rows, cols = shape
-    # a = (cols / 2) / (1 - sideVal)
     a = (240 - b) / 320
-    # offset = -0
     matrix = np.zeros(shape=shape, dtype="float32")
-    # for i in range(rows):
-    #     for j in range(cols):
-    #         if j < cols / 2:
-    #             #matrix[i, j] = pow((1 * (i/rows)), 3) * pow((0.5 * (j / (cols / 2))), 1)
-    #             matrix[i, j] = pow((0.5 * (j / (cols / 2))), 1)
-    #         else:
-    #             #matrix[i, j] = -1 * pow((offset + 1 * (i/rows)), 3) * pow((offset + 0.5 * (1-((j- (cols / 2)) / (cols / 2)))), 2)
-    #             matrix[i, j] = -1 * pow((offset + 0.5 * (1-((j- (cols / 2)) / (cols / 2)))), 2)
 
-    # for i in range(cols):
-    #     matrix[:, i] = 1 / (1 + math.exp(0.1 * (i - cols / 2)))
-
+    # Triangle code
     for col in range(320):
         for row in range(480):
             if (rows - row) < a * col + b:
                 matrix[row, col] = 1
+
+    matrix[int(rows/4): , :320] = 1
+    matrix[int(rows/4): , 320:] = -0.12
+
+    for i in range(rows):
+        if i < 200:
+            matrix[i, :] *= 0.5
 
     # for i in range(cols):
     #     if i < cols / 2:
@@ -79,15 +73,20 @@ def get_motor_right_matrix(shape: Tuple[int, int]) -> np.ndarray:
     # TODO: write your function instead of this one
 
     rows, cols = shape
-    # a = (cols / 2) / (1 - sideVal)
-    matrix = np.zeros(shape=shape, dtype="float32")
     a = (240 - b) / 320
+    matrix = np.zeros(shape=shape, dtype="float32")
 
-    for col in range(320):
-        for row in range(480):
-            if (rows - row) < -a * (col - 320) + b:
-                matrix[row, col+ 320] = 1
+    # for col in range(320):
+    #     for row in range(480):
+    #         if (rows - row) < -a * (col - 320) + b:
+    #             matrix[row, col+ 320] = 1
 
+    matrix[int(rows/4): , 320:] = 1
+    matrix[int(rows/4): , :320] = -0.12
+
+    for i in range(rows):
+        if i < 200:
+            matrix[i, :] *= 0.5
 
     # for i in range(rows):
     #     for j in range(cols):
